@@ -47,6 +47,8 @@ searchBtn.addEventListener("click", async () => {
       map.removeLayer(permitLayer);
     }
 
+    const markers = L.markerClusterGroup();
+
     permitLayer = L.geoJSON(data, {
 
       pointToLayer: function(feature, latlng) {
@@ -70,8 +72,9 @@ searchBtn.addEventListener("click", async () => {
         `);
 
       }
-
-    }).addTo(map);
+    });
+    markers.addLayer(permitLayer);
+    map.addLayer(markers);
 
     map.fitBounds(permitLayer.getBounds());
 
