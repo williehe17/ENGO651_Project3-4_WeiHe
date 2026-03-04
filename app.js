@@ -7,7 +7,9 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; OpenStreetMap contributors"
 }).addTo(map);
 
-// --- Date range picker setup ---
+let permitLayer;
+
+// --- Date range picker ---
 flatpickr("#dateRange", {
   mode: "range",
   dateFormat: "Y-m-d"
@@ -32,18 +34,68 @@ searchBtn.addEventListener("click", async () => {
 
   statusEl.textContent = "Loading permits...";
 
-  const data = await fetchPermits(startDate, endDate);
+  try {
 
-  statusEl.textContent = `Loaded ${data.features.length} permits`;
+    const data = await fetchPermits(startDate, endDate);
 
-  console.log(data);
+    if (!data.features || data.features.length === 0) {
+      statusEl.textContent = "No permits found for this date range.";
+      return;
+    }
+
+    if (permitLayer) {
+      map.removeLayer(permitLayer);
+    }
+
+    permitLayer = L.geoJSON(data, {
+
+      pointToLayer: function(feature, latlng) {
+        return L.circleMarker(latlng, {
+          radius: 6,
+          fillColor: "red",
+          color: "#000",
+          weight: 1,
+          fillOpacity: 0.8
+        });
+      },
+
+      onEachFeature: function (feature, layer) {
+
+        const p = feature.properties;
+
+        layer.bindPopup(`
+          <b>Address:</b> ${p.originaladdress || "N/A"}<br>
+          <b>Permit Type:</b> ${p.permittype || "N/A"}<br>
+          <b>Issued Date:</b> ${p.issueddate || "N/A"}
+        `);
+
+      }
+
+    }).addTo(map);
+
+    map.fitBounds(permitLayer.getBounds());
+
+    statusEl.textContent = `Loaded ${data.features.length} permits`;
+
+  } catch (error) {
+    console.error(error);
+    statusEl.textContent = "Error loading permit data.";
+  }
+
 });
 
 clearBtn.addEventListener("click", () => {
+
   dateRangeEl.value = "";
   statusEl.textContent = "";
+
+  if (permitLayer) {
+    map.removeLayer(permitLayer);
+  }
+
 });
 
+// --- Calgary Open Data API ---
 const API_URL = "https://data.calgary.ca/resource/c2es-76ed.geojson";
 
 async function fetchPermits(startDate, endDate) {

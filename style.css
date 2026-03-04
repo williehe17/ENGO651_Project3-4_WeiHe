@@ -36,8 +36,9 @@
 .status {
   font-size: 13px;
   color: #444;
-}】
+}
 
+/* Map container */
 #map {
   height: calc(100vh - 110px);
   width: 100%;
