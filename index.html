@@ -9,11 +9,32 @@
   <link rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <!-- Your CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h2 class="title">Calgary Map (Leaflet)</h2>
+  <header class="header">
+    <h2>Calgary Building Permits</h2>
+
+    <div class="controls">
+      <label for="dateRange">Issued date range:</label>
+      <input id="dateRange" type="text" placeholder="Select date range" />
+
+      <button id="searchBtn">Search</button>
+      <button id="clearBtn" class="secondary">Clear</button>
+
+      <span id="status" class="status"></span>
+    </div>
+  </header>
+
   <div id="map"></div>
+
+  <!-- Flatpickr (date picker) -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
