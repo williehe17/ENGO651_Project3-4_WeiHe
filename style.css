@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  margin: 12px;
+}
+
+#map {
+  height: 90vh;
+  width: 100%;
+}
