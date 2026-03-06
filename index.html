@@ -5,44 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ENGO651 Lab 3 - Calgary Building Permits</title>
 
-  <!-- Leaflet CSS -->
+  <!-- Leaflet map library styles -->
   <link rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-  <!-- Flatpickr CSS -->
+  <!-- Flatpickr styles for the date range picker -->
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-  <!-- Your CSS -->
+  <!-- Main stylesheet for this project -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Page header and search controls -->
   <header class="header">
     <h2>Calgary Building Permits</h2>
 
     <div class="controls">
+      <!-- Date range input -->
       <label for="dateRange">Issued date range:</label>
       <input id="dateRange" type="text" placeholder="Select date range" />
-
+      <!-- Search and clear buttons -->
       <button id="searchBtn">Search</button>
       <button id="clearBtn" class="secondary">Clear</button>
-
+      <!-- Status message (number of permits loaded) -->
       <span id="status" class="status"></span>
     </div>
   </header>
-
+  <!-- Map container (Leaflet will render the map here) -->
   <div id="map"></div>
-
+  <!-- Date picker library -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Marker clustering plugin -->
   <link rel="stylesheet"
    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css"/>
   <link rel="stylesheet"
    href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
   <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+  <!-- Plugin to handle overlapping markers -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+  <!-- Configuration file (API settings if needed) -->
   <script src="config.js"></script>
-  <script src="app.js"></script>
-  
+  <!-- Main JavaScript logic for the web map -->
+  <script src="app.js"></script>  
 </body>
 </html>
