@@ -29,7 +29,6 @@ const statusEl = document.getElementById("status");
 const dateRangeEl = document.getElementById("dateRange");
 
 searchBtn.addEventListener("click", async () => {
-
   const dates = dateRangeEl.value.split(" to ");
 
   if (dates.length !== 2) {
@@ -39,11 +38,9 @@ searchBtn.addEventListener("click", async () => {
 
   const startDate = dates[0];
   const endDate = dates[1];
-
   statusEl.textContent = "Loading permits...";
 
   try {
-
     const data = await fetchPermits(startDate, endDate);
 
     if (!data.features || data.features.length === 0) {
@@ -55,28 +52,24 @@ searchBtn.addEventListener("click", async () => {
     markers.clearLayers();
 
     permitLayer = L.geoJSON(data, {
-
-      pointToLayer: function(feature, latlng) {
-
+      pointToLayer: function (feature, latlng) {
         const marker = L.marker(latlng, { spiderfyOnMaxZoom: true });
 
         // Register with spiderfier
         oms.addMarker(marker);
-
         return marker;
       },
 
       onEachFeature: function (feature, layer) {
-
         const p = feature.properties;
 
         layer.bindPopup(`
-            <b>Address:</b> ${p.originaladdress || "N/A"}<br>
-            <b>Issued Date:</b> ${p.issueddate || "N/A"}<br>
-            <b>Work Class:</b> ${p.workclassgroup || "N/A"}<br>
-            <b>Contractor:</b> ${p.contractorname || "N/A"}<br>
-            <b>Community:</b> ${p.communityname || "N/A"}
-            `);
+          <b>Address:</b> ${p.originaladdress || "N/A"}<br>
+          <b>Issued Date:</b> ${p.issueddate || "N/A"}<br>
+          <b>Work Class:</b> ${p.workclassgroup || "N/A"}<br>
+          <b>Contractor:</b> ${p.contractorname || "N/A"}<br>
+          <b>Community:</b> ${p.communityname || "N/A"}
+        `);
       }
     });
 
@@ -84,30 +77,24 @@ searchBtn.addEventListener("click", async () => {
     markers.addLayer(permitLayer);
 
     map.fitBounds(permitLayer.getBounds());
-
     statusEl.textContent = `Loaded ${data.features.length} permits`;
 
   } catch (error) {
     console.error(error);
     statusEl.textContent = "Error loading permit data.";
   }
-
 });
 
 clearBtn.addEventListener("click", () => {
-
   dateRangeEl.value = "";
   statusEl.textContent = "";
-
   markers.clearLayers();
-
 });
 
 // --- Calgary Open Data API ---
 const API_URL = "https://data.calgary.ca/resource/c2es-76ed.geojson";
 
 async function fetchPermits(startDate, endDate) {
-
   const where = `issueddate >= '${startDate}' AND issueddate <= '${endDate}'`;
 
   const params = new URLSearchParams({
@@ -116,7 +103,6 @@ async function fetchPermits(startDate, endDate) {
   });
 
   const url = `${API_URL}?${params.toString()}`;
-
   const response = await fetch(url);
 
   return response.json();
