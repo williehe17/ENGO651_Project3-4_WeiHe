@@ -71,13 +71,13 @@ searchBtn.addEventListener("click", async () => {
         const p = feature.properties;
 
         layer.bindPopup(`
-          <b>Address:</b> ${p.originaladdress || "N/A"}<br>
-          <b>Permit Type:</b> ${p.permittype || "N/A"}<br>
-          <b>Issued Date:</b> ${p.issueddate || "N/A"}
-        `);
-
+            <b>Address:</b> ${p.originaladdress || "N/A"}<br>
+            <b>Issued Date:</b> ${p.issueddate || "N/A"}<br>
+            <b>Work Class:</b> ${p.workclassgroup || "N/A"}<br>
+            <b>Contractor:</b> ${p.contractorname || "N/A"}<br>
+            <b>Community:</b> ${p.communityname || "N/A"}
+            `);
       }
-
     });
 
     // Add to cluster group
