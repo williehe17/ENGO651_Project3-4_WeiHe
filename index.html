@@ -28,6 +28,7 @@
       <!-- Search and clear buttons -->
       <button id="searchBtn">Search</button>
       <button id="clearBtn" class="secondary">Clear</button>
+      <button id="toggleTrafficBtn">Toggle Traffic Layer</button>
       <!-- Status message (number of permits loaded) -->
       <span id="status" class="status"></span>
     </div>
@@ -45,6 +46,9 @@
   <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
   <!-- Plugin to handle overlapping markers -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>
+  <script src="https://unpkg.com/mapbox-gl-leaflet/leaflet-mapbox-gl.js"></script>
   <!-- Configuration file -->
   <script src="config.js"></script>
   <!-- Main JavaScript logic for the web map -->
